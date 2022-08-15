@@ -1,0 +1,121 @@
+{
+	"name": "EmployeeHTPPSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NameFake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "/"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"address": {
+					"type": "string"
+				},
+				"latitude": {
+					"type": "number"
+				},
+				"longitude": {
+					"type": "number"
+				},
+				"maiden_name": {
+					"type": "string"
+				},
+				"birth_data": {
+					"type": "string"
+				},
+				"phone_h": {
+					"type": "string"
+				},
+				"phone_w": {
+					"type": "string"
+				},
+				"email_u": {
+					"type": "string"
+				},
+				"email_d": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"domain": {
+					"type": "string"
+				},
+				"useragent": {
+					"type": "string"
+				},
+				"ipv4": {
+					"type": "string"
+				},
+				"macaddress": {
+					"type": "string"
+				},
+				"plasticcard": {
+					"type": "string"
+				},
+				"cardexpir": {
+					"type": "string"
+				},
+				"bonus": {
+					"type": "integer"
+				},
+				"company": {
+					"type": "string"
+				},
+				"color": {
+					"type": "string"
+				},
+				"uuid": {
+					"type": "string"
+				},
+				"height": {
+					"type": "integer"
+				},
+				"weight": {
+					"type": "number"
+				},
+				"blood": {
+					"type": "string"
+				},
+				"eye": {
+					"type": "string"
+				},
+				"hair": {
+					"type": "string"
+				},
+				"pict": {
+					"type": "string"
+				},
+				"url": {
+					"type": "string"
+				},
+				"sport": {
+					"type": "string"
+				},
+				"ipv4_url": {
+					"type": "string"
+				},
+				"email_url": {
+					"type": "string"
+				},
+				"domain_url": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
