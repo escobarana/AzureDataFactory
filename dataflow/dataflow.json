@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "dataflow",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -13,14 +13,61 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "Body"
+				},
+				{
+					"name": "externalCall1",
+					"linkedService": {
+						"referenceName": "RESTAPI",
+						"type": "LinkedServiceReference"
+					}
+				},
+				{
+					"name": "select2"
+				}
+			],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     httpMethod: 'GET',",
 				"     timeout: 30,",
 				"     paginationRules: ['supportRFC5988' -> 'true'],",
-				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'documentPerLine']) ~> HTTPAPI"
+				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'singleDocument']) ~> HTTPAPI",
+				"HTTPAPI select(mapColumn(",
+				"          each(match(name == 'body'),",
+				"               $0 = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Body",
+				"Body call(mapColumn(",
+				"          each(match(name == 'name'),",
+				"               'name' = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     output(",
+				"          headers as [string,string],",
+				"          status as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     format: 'rest',",
+				"     store: 'restservice',",
+				"     timeout: 30,",
+				"     requestInterval: 0,",
+				"     httpMethod: 'GET',",
+				"     headerColumnName: 'headers',",
+				"     bodyColumnName: 'body',",
+				"     statusColumnName: 'status',",
+				"     addResponseCode: true,",
+				"     requestFormat: ['type' -> 'json'],",
+				"     responseFormat: ['type' -> 'json', 'documentForm' -> 'documentPerLine']) ~> externalCall1",
+				"externalCall1 select(mapColumn(",
+				"          headers = status",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2"
 			]
 		}
 	}
