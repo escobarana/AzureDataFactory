@@ -212,6 +212,38 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/MyAzureSQL')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/My1minTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Triggers every 60 seconds",
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "TxtToSql",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-08-15T18:29:00Z",
+						"endTime": "2022-08-16T18:29:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/TxtToSql')]"
+			]
 		}
 	]
 }
